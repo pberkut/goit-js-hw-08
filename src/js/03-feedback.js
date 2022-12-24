@@ -4,7 +4,6 @@ const formRef = document.querySelector('.feedback-form');
 const inputEmailRef = formRef.querySelector('[name= "email"]');
 const inputMessageRef = formRef.querySelector('[name= "message"]');
 
-// const obj = new Map();
 const formData = {};
 const STORAGE_KEY = 'feedback-form-state';
 
@@ -22,7 +21,6 @@ function onInput(evt) {
   const savedForm = JSON.stringify(formData);
 
   localStorage.setItem(STORAGE_KEY, savedForm);
-  console.log(formData);
 }
 
 function onFormSubmit(evt) {
