@@ -6,9 +6,16 @@ const player = new Player(iframe);
 
 player.on('timeupdate', throttle(onPlay, 1000));
 
+playbackPosition();
+
 function onPlay(data) {
   console.log(data.seconds);
   localStorage.setItem('videoplayer-current-time', data.seconds);
 }
 
-player.setCurrentTime(localStorage.getItem('videoplayer-current-time'));
+function playbackPosition() {
+  const isTrue = localStorage.getItem('videoplayer-current-time');
+  if (isTrue) {
+    player.setCurrentTime(localStorage.getItem('videoplayer-current-time'));
+  }
+}
