@@ -4,32 +4,39 @@ const formRef = document.querySelector('.feedback-form');
 const inputEmailRef = formRef.querySelector('[name= "email"]');
 const inputMessageRef = formRef.querySelector('[name= "message"]');
 
-const obj = new Map();
-const LOCALSTORAGE_KEY = 'feedback-form-state';
+// const obj = new Map();
+const formData = {};
+const STORAGE_KEY = 'feedback-form-state';
 
-const savedMessage = { ...JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)) };
-const { email = '', message = '' } = savedMessage;
+insetForm();
 
-inputEmailRef.value = email;
-inputMessageRef.value = message;
-
-formRef.addEventListener('submit', onSubmit);
+formRef.addEventListener('submit', onFormSubmit);
 formRef.addEventListener('input', threttle(onInput, 500));
 
 function onInput(evt) {
   const name = evt.target.name;
   const value = evt.target.value;
 
-  const message = Object.fromEntries(obj.set(name, value));
+  formData[name] = value;
 
-  const savedMessage = JSON.stringify(message);
+  const savedForm = JSON.stringify(formData);
 
-  localStorage.setItem(LOCALSTORAGE_KEY, savedMessage);
-  console.log(savedMessage);
+  localStorage.setItem(STORAGE_KEY, savedForm);
+  console.log(formData);
 }
 
-function onSubmit(evt) {
+function onFormSubmit(evt) {
   evt.preventDefault();
-  localStorage.removeItem(LOCALSTORAGE_KEY);
-  formRef.reset();
+  localStorage.removeItem(STORAGE_KEY);
+  evt.currentTarget.reset();
+}
+
+function insetForm() {
+  const savedForm = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+  if (savedForm) {
+    const { email = '', message = '' } = savedForm;
+    inputEmailRef.value = email;
+    inputMessageRef.value = message;
+  }
 }
