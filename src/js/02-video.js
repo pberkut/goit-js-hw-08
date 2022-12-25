@@ -13,7 +13,7 @@ player.on("timeupdate", throttle(onPlay, 1000));
 playbackPosition();
 
 function onPlay(currentTime) {
-  localStorage.setItem(KEY, JSON.currentTime.seconds);
+  localStorage.setItem(KEY, currentTime.seconds);
 }
 
 function playbackPosition() {
