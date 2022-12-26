@@ -1,13 +1,13 @@
-import threttle from "lodash.throttle";
+import threttle from 'lodash.throttle';
 
-const formRef = document.querySelector(".feedback-form");
+const formRef = document.querySelector('.feedback-form');
 
-const STORAGE_KEY = "feedback-form-state";
+const STORAGE_KEY = 'feedback-form-state';
 
 insetForm();
 
-formRef.addEventListener("submit", onFormSubmit);
-formRef.addEventListener("input", threttle(onInput, 500));
+formRef.addEventListener('submit', onFormSubmit);
+formRef.addEventListener('input', threttle(onInput, 500));
 
 function onInput(e) {
   let savedForm = localStorage.getItem(STORAGE_KEY);
